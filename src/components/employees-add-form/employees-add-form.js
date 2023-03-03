@@ -6,7 +6,7 @@ class EmployeesAddForm extends Component {
         super(props);
         this.state = {
             name: '',
-            salaty: ''
+            salary: ''
         }
     }
 
@@ -15,6 +15,15 @@ class EmployeesAddForm extends Component {
             [e.target.name]: e.target.value
         })
     }
+
+    onAddEmployees = (e) => {
+        e.preventDefault();
+        const { onAddItem } = this.props;
+        onAddItem(this.state);
+        console.log(this.state);
+
+    }
+
     render() {
         const { name, salary } = this.state;
         return (
@@ -36,6 +45,7 @@ class EmployeesAddForm extends Component {
                         onChange={this.onValueChange} />
 
                     <button type="submit"
+                        onClick={this.onAddEmployees}
                         className="btn btn-outline-light">Добавить</button>
                 </form>
             </div>
