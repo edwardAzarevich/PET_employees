@@ -41,11 +41,17 @@ class App extends Component {
                 return item;
             })
         }))
-        console.log(`Increase this ${id}`);
     }
 
     onToggleRise = (id) => {
-        console.log(`Rise this ${id}`);
+        this.setState(({ data }) => ({
+            data: data.map(item => {
+                if (item.id === id) {
+                    return { ...item, rise: !item.rise }
+                }
+                return item;
+            })
+        }))
     }
 
 
@@ -66,9 +72,11 @@ class App extends Component {
         })
     }
     render() {
+        const allCountEmpoyees = this.state.data.length,
+            increaseEmployees = this.state.data.filter(employees => employees.increase).length;
         return (
             <div className="app">
-                <AppInfo />
+                <AppInfo allCountEmpoyees={allCountEmpoyees} increaseEmployees={increaseEmployees} />
                 <div className="search-panel">
                     <SearchPanel />
                     <AppFilter />
