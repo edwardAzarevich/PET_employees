@@ -19,7 +19,7 @@ class App extends Component {
                 { name: 'Jon3', salary: 300, increase: false, rise: false, id: 3 },
             ],
             term: '',
-            filter: 'rise'
+            filter: 'all'
         }
         this.maxId = 4;
 
@@ -76,41 +76,19 @@ class App extends Component {
         this.setState({ term });
     }
 
-    onSalaryMore1000 = (items) => {
-        return items.filter(item => item.salary > 1000)
-    }
-
-    onForPromotion = () => {
-        this.setState(({ data }) => {
-            const newArrayForIncrease = data.filter((item) => item.rise);
-
-            console.log(newArrayForIncrease);
-            return {
-                data: newArrayForIncrease
-            }
-        })
-    }
-
-    onAllEmployees = () => {
-        this.setState(({ data }) => {
-            const newArrayForIncrease = data.filter((item) => item.rise);
-
-            console.log(newArrayForIncrease);
-            return {
-                data: newArrayForIncrease
-            }
-        })
-    }
-
     filterPost = (items, filter) => {
         switch (filter) {
             case 'rise':
                 return items.filter(item => item.rise);
             case 'moreThen1000':
-                return items.filter(item => item.selery > 1000);
+                return items.filter(item => item.salary > 1000);
             default:
                 return items
         }
+    }
+
+    onFilterSelect = (filter) => {
+        this.setState({ filter });
     }
 
 
@@ -125,7 +103,7 @@ class App extends Component {
                 <AppInfo allCountEmpoyees={allCountEmpoyees} increaseEmployees={increaseEmployees} />
                 <div className="search-panel">
                     <SearchPanel onUpdateSearch={this.onUpdateSearch} />
-                    <AppFilter onSalaryMore1000={this.onSalaryMore1000} onForPromotion={this.onForPromotion} />
+                    <AppFilter filter={filter} onFilterSelect={this.onFilterSelect} />
                 </div>
 
                 <EmployeesList
